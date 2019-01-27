@@ -14,6 +14,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(title: Text("List Demo"),leading: Icon(Icons.featured_play_list),),
         body: Container(
           child: ListDialog(),
         ),
