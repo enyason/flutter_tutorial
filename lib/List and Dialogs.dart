@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ListDialog extends StatefulWidget {
+  List data;
+
+  ListDialog(this.data);
+
   @override
   _ListDialogState createState() => _ListDialogState();
 }
@@ -29,44 +33,46 @@ class _ListDialogState extends State<ListDialog> {
     // creating an infinite loop
 
     return ListView.builder(
+      itemCount: widget.data == null ? 0 : widget.data.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text("enyason"),
-          subtitle: Row(
-            children: <Widget>[
-              CircleAvatar(radius: 3.0,backgroundColor: Colors.green,),
+          title: Text(widget.data[index]["name"]["first"]),
+          subtitle: Text(widget.data[index]["email"]),
+          leading: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2.0),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: Text("active"),
-              )
-            ],
+            ),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  widget.data[index]["picture"]["thumbnail"]
+              ),
+              backgroundColor: Colors.white,
+
+            ),
           ),
-          leading: Icon(Icons.person),
-          trailing: Icon(Icons.delete),
+          trailing: Text("${widget.data[index]["dob"]["age"]}"),
           onTap: () {
-
             showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (BuildContext ctx) {
-
                   return AlertDialog(
                     actions: <Widget>[
-                      new FlatButton(onPressed: (){
-                        Navigator.of(context).pop(true);
-                      }, child: Text("Yes")),
-                      new FlatButton(onPressed: (){
-                        Navigator.of(context).pop(false);
-
-                      }, child: Text("No"))
+                      new FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text("Yes")),
+                      new FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text("No"))
                     ],
                     content: Text("Continue to delete user"),
                   );
-
-                }).then((value)=> print("the value is $value"));
-
-
+                }).then((value) => print("the value is $value"));
           },
         );
       },
