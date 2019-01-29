@@ -8,20 +8,17 @@ class TabPage extends StatefulWidget {
 }
 
 class _TabPageState extends State<TabPage> {
-
   Future<String> getUsersResult() async {
     String url = "https://randomuser.me/api/?results=5";
 //   var response =
 
-     var response = await http.get(Uri.decodeFull(url));
+    var response = await http.get(Uri.decodeFull(url));
 
-    var  res = json.decode(response.body);
+    var res = json.decode(response.body);
 
     List data = res["results"];
 
-    data.forEach((val)=>print(val["name"]["first"]));
-
-
+    data.forEach((val) => print(val["name"]["first"]));
   }
 
   @override
@@ -31,12 +28,15 @@ class _TabPageState extends State<TabPage> {
         color: Colors.white,
         child: Center(
           child: RaisedButton(
-            onPressed: (){
+            onPressed: () {
               print("Raised button");
               getUsersResult();
             },
             color: Colors.lightBlue,
-            child: Text("Add a Photo"),
+            child: Text(
+              "Add a Photo",
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
